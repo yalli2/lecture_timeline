@@ -178,7 +178,7 @@
   <main class="timeline" id="timeline"></main>
 
   <footer>
-    <p>출강 관리 시스템의 종료 과정 기록과 강사 본인의 출강 기록을 함께 정리했습니다. 회차가 표시된 과정의 수업 횟수는 실제 진행된 회차입니다. 수강생 개인 이름은 싣지 않았습니다.</p>
+    <p>출강 관리 시스템의 종료 과정 기록과 강사 본인의 출강 기록을 함께 정리했습니다. 회차가 표시된 과정의 수업 횟수는 실제 진행된 회차입니다. 총 수업시간은 회차 기록이 있는 과정은 회차별 수업 시간을 더하고, 그 밖의 과정은 수업 기간에 주당 수업 시간을 곱해 오늘까지 어림한 값입니다. 수강생 개인 이름은 싣지 않았습니다.</p>
     <p>강의 문의 <a href="https://www.dainedu.net">www.dainedu.net</a> 다인원격평생교육직업학원</p>
   </footer>
 </div>
@@ -198,13 +198,13 @@ const ORGS = {
 };
 
 // s: 시작일, e: 종료일(없으면 진행 중), n: 진행 회차, t: 수업 시간, d: 요일, m: 방식
-// mp: 월 단위로만 표시, freq: 요일·시간 대신 보여 줄 수업 주기
+// mp: 월 단위로만 표시, freq: 요일·시간 대신 보여 줄 수업 주기, wh: 주당 수업 시간(총 시간 추정용)
 const COURSES = [
-  { o:"mdh",     s:"2019-04-01", mp:true, title:"임직원 정규 수업", freq:"주 2회 1시간" },
-  { o:"vol",     s:"2024-03-01", mp:true, title:"스페인어 강좌 (분기별 운영)", freq:"주 1회 1시간 30분" },
-  { o:"vol",     s:"2024-03-01", mp:true, title:"영어 강좌 (분기별 운영)", freq:"주 1회 1시간 30분" },
-  { o:"haegong", s:"2024-04-01", mp:true, title:"중급 영어회화", freq:"주 1회 1시간 30분" },
-  { o:"dongan",  s:"2022-04-01", e:"2026-10-31", mp:true, title:"스페인어 수업", freq:"매주 2시간" },
+  { o:"mdh",     s:"2019-04-01", mp:true, title:"임직원 정규 수업", freq:"주 2회 1시간", wh:2 },
+  { o:"vol",     s:"2024-03-01", mp:true, title:"스페인어 강좌 (분기별 운영)", freq:"주 1회 1시간 30분", wh:1.5 },
+  { o:"vol",     s:"2024-03-01", mp:true, title:"영어 강좌 (분기별 운영)", freq:"주 1회 1시간 30분", wh:1.5 },
+  { o:"haegong", s:"2024-04-01", mp:true, title:"중급 영어회화", freq:"주 1회 1시간 30분", wh:1.5 },
+  { o:"dongan",  s:"2022-04-01", e:"2026-10-31", mp:true, title:"스페인어 수업", freq:"매주 2시간", wh:2 },
   { o:"ipa",   s:"2025-07-07", e:"2025-11-25", title:"2025년 스페인어반 (하반기)", d:"월", t:"12:00-13:00", m:"대면", n:20 },
   { o:"mofa",  s:"2025-06-02", e:"2025-08-28", title:"2025년도 2차수 스페인어 검정 대비 과정", d:"화·목", t:"12:00-13:00", m:"비대면", n:24 },
   { o:"ipa",   s:"2025-02-17", e:"2025-07-07", title:"2025년 1차수 스페인어반", d:"월", t:"12:00-13:00", m:"대면", n:17 },
@@ -242,8 +242,16 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
 
 /* 요약 수치 */
+// 총 수업시간: 회차 기록이 있으면 회차 × 수업 시간, 없으면 기간(주) × 주당 시간
+const hoursOf = c => {
+  if (c.wh) return (Date.parse(c.e || TODAY) - Date.parse(c.s)) / 6048e5 * c.wh;
+  if (!c.t) return c.n;
+  const [a, b] = c.t.split("-").map(x => { const [hh, mm] = x.split(":").map(Number); return hh + mm / 60; });
+  return (b - a) * c.n;
+};
+const totalH = Math.round(COURSES.reduce((s, c) => s + hoursOf(c), 0) / 10) * 10;
 const stats = document.getElementById("stats");
-[[Object.keys(ORGS).length, "개 기관"], [COURSES.length, "개 과정"], [COURSES.filter(c => !c.e).length, "개 과정 진행 중"], [COURSES.reduce((m, c) => c.s < m ? c.s : m, TODAY).slice(0, 4), "년부터 출강"]].forEach(([v, l]) => {
+[[Object.keys(ORGS).length, "개 기관"], [COURSES.length, "개 과정"], [COURSES.filter(c => !c.e).length, "개 과정 진행 중"], ["약 " + totalH.toLocaleString("ko-KR"), "시간 수업"]].forEach(([v, l]) => {
   const li = el("li"); li.append(el("b", "", v), el("span", "", l)); stats.append(li);
 });
 
