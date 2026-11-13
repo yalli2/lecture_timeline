@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>황부연 강사 주요 기관 강의 이력 | 다인에듀</title>
+<meta name="description" content="다인에듀 대표강사 황부연의 국내 주요 기관 스페인어 출강 이력 (2020–2025) 타임라인">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root {
+    --bg: #F2F5F8;
+    --surface: #FFFFFF;
+    --ink: #12263A;
+    --ink-soft: #51647A;
+    --line: #D5DDE6;
+    --spine: #F2B705;
+    --kepco: #1F5FBF;
+    --seoul: #23805F;
+    --mofa: #6B4FA3;
+    --ipa: #0B7F96;
+    --sae: #C06A14;
+    --hl: #B93A36;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* 머리말 */
+  header.top { padding: 56px 0 28px; }
+  .brand { font-size: 15px; font-weight: 600; color: var(--ink-soft); margin: 0 0 20px; }
+  .brand a { color: inherit; text-decoration: none; border-bottom: 2px solid var(--spine); }
+  h1 {
+    margin: 0;
+    font-size: clamp(34px, 6.4vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+  }
+  .lede { margin: 20px 0 0; max-width: 34em; font-size: 18px; color: var(--ink-soft); }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 8px 40px; margin: 32px 0 0; padding: 0; list-style: none; }
+  .stats li { display: flex; align-items: baseline; gap: 8px; }
+  .stats b { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .stats span { font-size: 15px; color: var(--ink-soft); }
+
+  /* 기관별 출강 기간표 */
+  .lanes {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 6px;
+    padding: 28px 28px 22px;
+    margin: 28px 0 0;
+  }
+  .lanes h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .lanes p { margin: 0 0 22px; font-size: 14px; color: #A9B8C8; }
+  .grid { position: relative; }
+  .years, .lane-track { position: relative; margin-left: 132px; }
+  .years { height: 22px; font-size: 13px; color: #A9B8C8; }
+  .years span { position: absolute; top: 0; transform: translateX(6px); }
+  .lane { display: flex; align-items: center; height: 38px; border-top: 1px solid rgba(255,255,255,.12); }
+  .lane-name { width: 132px; flex: none; font-size: 14px; font-weight: 600; padding-right: 12px; }
+  .lane .lane-track { flex: 1; margin-left: 0; height: 100%; }
+  .lane-track i.tick { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,.12); }
+  .bar {
+    position: absolute; top: 10px; height: 18px; min-width: 4px;
+    border: 0; padding: 0; border-radius: 3px; cursor: pointer;
+    background: var(--c); filter: brightness(1.35) saturate(1.1);
+  }
+  .bar:hover, .bar:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  /* 필터 */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 44px 0 8px; }
+  .chip {
+    font: inherit; font-size: 15px; font-weight: 600;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chip::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--ink)); }
+  .chip small { font-size: 13px; font-weight: 500; color: var(--ink-soft); }
+  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chip[aria-pressed="true"] small { color: #C6D2DE; }
+  .chip:focus-visible { outline: 3px solid var(--spine); outline-offset: 2px; }
+  .count { margin: 0 0 8px; font-size: 14px; color: var(--ink-soft); }
+
+  /* 타임라인 */
+  .timeline { position: relative; padding: 8px 0 40px; }
+  .timeline::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 151px; width: 4px;
+    background: var(--spine); border-radius: 2px;
+  }
+  .year {
+    position: sticky; top: 0; z-index: 2;
+    width: 120px; margin: 28px 0 4px;
+    font-size: 44px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1;
+    background: var(--bg); padding: 6px 0;
+  }
+  .item { position: relative; display: grid; grid-template-columns: 120px 1fr; column-gap: 66px; padding: 8px 0; }
+  .item::before {
+    content: ""; position: absolute; left: 144px; top: 26px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--c); border: 4px solid var(--bg);
+  }
+  .when { padding-top: 18px; font-size: 14px; color: var(--ink-soft); text-align: right; line-height: 1.45; }
+  .when b { display: block; color: var(--ink); font-size: 15px; font-weight: 700; }
+  .card {
+    background: var(--surface); border-radius: 6px; padding: 16px 20px 16px 18px;
+    border-left: 5px solid var(--c);
+  }
+  .item.flash .card { animation: flash 1.4s ease-out; }
+  @keyframes flash { from { box-shadow: 0 0 0 4px var(--spine); } to { box-shadow: 0 0 0 4px transparent; } }
+  .org { margin: 0; font-size: 14px; font-weight: 700; color: var(--c); }
+  .card h3 { margin: 2px 0 10px; font-size: 19px; line-height: 1.35; font-weight: 700; letter-spacing: -0.015em; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-soft); }
+  .meta li.mode { font-weight: 600; color: var(--ink); }
+  .meta b { color: var(--ink); font-weight: 700; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0 56px; font-size: 14px; color: var(--ink-soft); }
+  footer p { margin: 0 0 6px; max-width: 60em; }
+  footer a { color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 16px; }
+    header.top { padding-top: 36px; }
+    .lanes { padding: 20px 16px 14px; }
+    .years { margin-left: 0; }
+    .lane { display: block; height: auto; padding: 6px 0 4px; }
+    .lane-name { width: auto; font-size: 13px; }
+    .lane .lane-track { height: 26px; }
+    .bar { top: 4px; }
+    .timeline::before { left: 7px; }
+    .year { width: auto; margin-left: 30px; font-size: 34px; }
+    .item { display: block; padding-left: 30px; }
+    .item::before { left: 0; top: 10px; }
+    .when { text-align: left; padding: 0 0 6px; }
+    .when b { display: inline; margin-right: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .item.flash .card { animation: none; outline: 3px solid var(--spine); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="brand"><a href="https://www.dainedu.net">다인에듀</a> 대표강사</p>
+    <h1>황부연 강사<br>주요 기관 강의 이력</h1>
+    <p class="lede">공공기관과 기업 임직원을 대상으로 진행한 스페인어 출강 과정을 시간순으로 정리했습니다. 입문 회화부터 해외 파견 대비 집중 과정, 어학 검정 대비까지 맡아 왔습니다.</p>
+    <ul class="stats" id="stats"></ul>
+  </header>
+
+  <section class="lanes" aria-labelledby="lanes-title">
+    <h2 id="lanes-title">기관별 출강 기간</h2>
+    <p>막대를 누르면 아래 타임라인의 해당 과정으로 이동합니다.</p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <div class="filters" id="filters" role="group" aria-label="기관별로 보기"></div>
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <main class="timeline" id="timeline"></main>
+
+  <footer>
+    <p>출강 관리 시스템의 종료 과정 기록(2020년 4월–2025년 11월)을 기준으로 정리했으며, 수업 횟수는 실제 진행된 회차입니다. 수강생 개인 이름은 싣지 않았습니다.</p>
+    <p>강의 문의 <a href="https://www.dainedu.net">www.dainedu.net</a> 다인원격평생교육직업학원</p>
+  </footer>
+</div>
+
+<script>
+const ORGS = {
+  kepco: { name: "한국전력공사", color: "var(--kepco)" },
+  seoul: { name: "서울특별시청", color: "var(--seoul)" },
+  mofa:  { name: "외교부", color: "var(--mofa)" },
+  ipa:   { name: "인천항만공사", color: "var(--ipa)" },
+  sae:   { name: "세아상역", color: "var(--sae)" },
+  hl:    { name: "HL만도 (HL인재원)", color: "var(--hl)" }
+};
+
+// s: 시작일, e: 종료일, n: 진행 회차, t: 수업 시간, d: 요일, m: 방식
+const COURSES = [
+  { o:"ipa",   s:"2025-07-07", e:"2025-11-25", title:"2025년 스페인어반 (하반기)", d:"월", t:"12:00-13:00", m:"대면", n:20 },
+  { o:"mofa",  s:"2025-06-02", e:"2025-08-28", title:"2025년도 2차수 스페인어 검정 대비 과정", d:"화·목", t:"12:00-13:00", m:"비대면", n:24 },
+  { o:"ipa",   s:"2025-02-17", e:"2025-07-07", title:"2025년 1차수 스페인어반", d:"월", t:"12:00-13:00", m:"대면", n:17 },
+  { o:"seoul", s:"2025-04-28", e:"2025-07-03", title:"2025년 2기 서울시청 그룹 스페인어 입문반", d:"월·수", t:"07:30-08:30", m:"대면", n:20 },
+  { o:"kepco", s:"2025-05-20", e:"2025-06-30", title:"해외 지사·법인 파견자 교육 (1:1)", d:"화·목", t:"19:00-21:00", m:"비대면", n:2 },
+  { o:"sae",   s:"2025-04-09", e:"2025-06-25", title:"스페인어 사내 어학과정 기초반", d:"수", t:"12:00-13:00", m:"대면", n:12 },
+  { o:"mofa",  s:"2025-03-04", e:"2025-05-31", title:"2025년도 1차수 스페인어 검정 대비 과정", d:"화·목", t:"12:00-13:00", m:"비대면", n:25 },
+  { o:"seoul", s:"2025-02-08", e:"2025-04-18", title:"서울시청 스페인어 입문반", d:"월·수", t:"07:30-08:30", m:"대면", n:19 },
+  { o:"kepco", s:"2025-01-24", e:"2025-01-24", title:"해외 파견 집중 어학과정 (금요일 종일반)", d:"금", t:"09:00-14:00", m:"대면", n:1 },
+  { o:"kepco", s:"2025-01-20", e:"2025-01-24", title:"해외 파견 집중 어학과정 (1:1 종일반)", d:"월–목", t:"09:00-17:00", m:"대면", n:4 },
+
+  { o:"kepco", s:"2024-10-28", e:"2024-12-30", title:"스페인어 일반회화 초급과정", d:"월·수·금", t:"11:40-12:40", m:"대면", n:27 },
+  { o:"seoul", s:"2024-09-21", e:"2024-12-13", title:"2024년 3기 사업소 과정 (미래한강본부)", d:"월·수", t:"07:50-08:50", m:"대면", n:24 },
+  { o:"seoul", s:"2024-09-21", e:"2024-12-13", title:"2024년 3기 일대일 일반형 과정", d:"화", t:"19:00-20:00", m:"대면", n:12 },
+  { o:"kepco", s:"2024-08-12", e:"2024-10-25", title:"스페인어 일반회화 초급과정", d:"월·수·금", t:"11:40-12:40", m:"대면", n:27 },
+  { o:"kepco", s:"2024-06-03", e:"2024-08-02", title:"스페인어 일반회화 초급과정", d:"월·수·금", t:"11:40-12:40", m:"대면", n:27 },
+
+  { o:"kepco", s:"2023-10-16", e:"2024-01-05", title:"인하우스 스페인어 안양지사 3차수", d:"월·수·금", t:"11:40-12:40", m:"대면", n:26 },
+  { o:"seoul", s:"2023-09-16", e:"2023-12-08", title:"스페인어 기초 탄탄", d:"화·목", t:"07:30-08:30", m:"대면", n:24 },
+  { o:"kepco", s:"2023-12-04", e:"2023-12-07", title:"인하우스 스페인어 안양지사 (추가 회차)", d:"월–목", t:"", m:"대면", n:4 },
+  { o:"hl",    s:"2023-09-11", e:"2023-10-06", title:"FSE 파견 예정자 과정", d:"월–금", t:"07:30-10:30", m:"비대면", n:14 },
+  { o:"kepco", s:"2023-07-17", e:"2023-10-12", title:"인하우스 스페인어 안양지사", d:"월·수·금", t:"11:40-12:40", m:"대면", n:36 },
+  { o:"kepco", s:"2023-07-17", e:"2023-10-11", title:"인하우스 스페인어 경기본부", d:"월·수·금", t:"18:30-20:00", m:"대면", n:26 },
+  { o:"kepco", s:"2023-04-17", e:"2023-07-14", title:"인하우스 스페인어 안양지사", d:"월·수·금", t:"11:40-12:40", m:"대면", n:36 },
+  { o:"kepco", s:"2023-01-16", e:"2023-04-14", title:"인하우스 스페인어 안양지사", d:"월·수·금", t:"11:40-12:40", m:"대면", n:36 },
+
+  { o:"kepco", s:"2020-11-09", e:"2021-01-11", title:"스페인어 남서울본부 직할 (여의사옥)", d:"월·수", t:"11:40-13:10", m:"대면", n:5 },
+  { o:"kepco", s:"2020-11-02", e:"2020-11-06", title:"스페인어 남서울본부 직할 (여의사옥)", d:"월·수·금", t:"11:40-12:40", m:"대면", n:3 },
+  { o:"seoul", s:"2020-10-12", e:"2020-11-14", title:"서울시 직장 외국어 강좌 서울대공원 입문반 (저녁)", d:"월·수", t:"19:00-20:00", m:"비대면", n:6 },
+  { o:"seoul", s:"2020-06-15", e:"2020-09-18", title:"서울시 직장 외국어 강좌 서울대공원 입문반 (저녁)", d:"월·수", t:"19:00-20:00", m:"대면", n:18 }
+].sort((a, b) => b.s.localeCompare(a.s) || b.e.localeCompare(a.e));
+
+const hoursOf = c => {
+  if (!c.t) return c.n;
+  const [a, b] = c.t.split("-").map(x => { const [h, m] = x.split(":").map(Number); return h + m / 60; });
+  return (b - a) * c.n;
+};
+const fmt = d => d.slice(0, 4) + "." + d.slice(5, 7) + "." + d.slice(8);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+
+/* 요약 수치 */
+const totalN = COURSES.reduce((s, c) => s + c.n, 0);
+const totalH = Math.round(COURSES.reduce((s, c) => s + hoursOf(c), 0));
+const stats = document.getElementById("stats");
+[[Object.keys(ORGS).length, "개 기관"], [COURSES.length, "개 과정"], [totalN, "회 수업"], [totalH, "시간 강의"]].forEach(([v, l]) => {
+  const li = el("li"); li.append(el("b", "", v.toLocaleString("ko-KR")), el("span", "", l)); stats.append(li);
+});
+
+/* 기관별 기간표 */
+const Y0 = 2020, Y1 = 2026;
+const T0 = Date.UTC(Y0, 0, 1), T1 = Date.UTC(Y1, 0, 1);
+const pos = d => (Date.parse(d) - T0) / (T1 - T0) * 100;
+const grid = document.getElementById("grid");
+const years = el("div", "years");
+for (let y = Y0; y < Y1; y++) { const s = el("span", "", y); s.style.left = (y - Y0) / (Y1 - Y0) * 100 + "%"; years.append(s); }
+grid.append(years);
+Object.entries(ORGS).forEach(([key, org]) => {
+  const lane = el("div", "lane");
+  lane.append(el("div", "lane-name", org.name));
+  const track = el("div", "lane-track");
+  for (let y = Y0; y < Y1; y++) { const t = el("i", "tick"); t.style.left = (y - Y0) / (Y1 - Y0) * 100 + "%"; track.append(t); }
+  COURSES.forEach((c, i) => {
+    if (c.o !== key) return;
+    const b = el("button", "bar");
+    b.type = "button";
+    b.style.setProperty("--c", org.color);
+    b.style.left = pos(c.s) + "%";
+    b.style.width = Math.max(pos(c.e) - pos(c.s), 0.3) + "%";
+    b.title = org.name + " " + c.title + " (" + fmt(c.s) + " ~ " + fmt(c.e) + ")";
+    b.setAttribute("aria-label", b.title);
+    b.addEventListener("click", () => jump(i));
+    track.append(b);
+  });
+  lane.append(track);
+  grid.append(lane);
+});
+
+/* 필터 */
+let active = "all";
+const filters = document.getElementById("filters");
+const mkChip = (key, label, n, color) => {
+  const b = el("button", "chip"); b.type = "button"; b.dataset.key = key;
+  if (color) b.style.setProperty("--c", color);
+  b.append(document.createTextNode(label), el("small", "", n + "개"));
+  b.addEventListener("click", () => { active = key; render(); });
+  filters.append(b);
+};
+mkChip("all", "전체", COURSES.length);
+Object.entries(ORGS).forEach(([k, o]) => mkChip(k, o.name, COURSES.filter(c => c.o === k).length, o.color));
+
+/* 타임라인 */
+const tl = document.getElementById("timeline");
+function render() {
+  filters.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.key === active));
+  tl.textContent = "";
+  let year = null, shown = 0;
+  COURSES.forEach((c, i) => {
+    if (active !== "all" && c.o !== active) return;
+    shown++;
+    const y = c.s.slice(0, 4);
+    if (y !== year) { year = y; tl.append(el("h2", "year", y)); }
+    const org = ORGS[c.o];
+    const item = el("article", "item"); item.id = "c" + i; item.style.setProperty("--c", org.color);
+    const when = el("div", "when");
+    when.append(el("b", "", fmt(c.s)), document.createTextNode(c.s === c.e ? "하루 과정" : "~ " + fmt(c.e)));
+    const card = el("div", "card");
+    card.append(el("p", "org", org.name), el("h3", "", c.title));
+    const meta = el("ul", "meta");
+    meta.append(el("li", "mode", c.m));
+    meta.append(el("li", "", c.d + (c.t ? " " + c.t.replace("-", "–") : "")));
+    const n = el("li"); n.append(el("b", "", c.n + "회"), document.createTextNode(" 진행")); meta.append(n);
+    card.append(meta);
+    item.append(when, card);
+    tl.append(item);
+  });
+  document.getElementById("count").textContent =
+    (active === "all" ? "전체" : ORGS[active].name) + " " + shown + "개 과정을 최근 순으로 보여 줍니다.";
+}
+function jump(i) {
+  if (active !== "all" && COURSES[i].o !== active) { active = "all"; render(); }
+  const t = document.getElementById("c" + i);
+  t.scrollIntoView({ block: "center" });
+  t.classList.remove("flash"); void t.offsetWidth; t.classList.add("flash");
+}
+render();
+</script>
+</body>
+</html>
