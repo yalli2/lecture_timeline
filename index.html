@@ -27,6 +27,7 @@
     --suwon: #4447B8;
     --lotte: #8F7200;
     --hyundai: #C2476A;
+    --yes: #1B6B6B;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -165,7 +166,7 @@
   <header class="top">
     <p class="brand"><a href="https://www.dainedu.net">다인에듀</a> 대표강사</p>
     <h1>황부연 강사<br>주요 기관 강의 이력</h1>
-    <p class="lede">공공기관과 기업, 평생학습관, 문화센터에서 진행한 스페인어·영어 출강 과정을 시간순으로 정리했습니다. 입문 회화부터 해외 파견 대비 집중 과정, 어학 검정 대비까지 맡아 왔습니다.</p>
+    <p class="lede">공공기관과 기업, 평생학습관, 문화센터, 유학원에서 진행한 스페인어·영어 출강 과정을 시간순으로 정리했습니다. 입문 회화부터 해외 파견 대비 집중 과정, 어학 검정 대비까지 맡아 왔습니다.</p>
     <ul class="stats" id="stats"></ul>
   </header>
 
@@ -200,12 +201,14 @@ const ORGS = {
   haegong: { name: "해공노인복지관", color: "var(--haegong)" },
   suwon:   { name: "수원시글로벌평생학습관", color: "var(--suwon)" },
   hyundai: { name: "현대백화점 문화센터", color: "var(--hyundai)" },
-  lotte:   { name: "롯데백화점 문화센터", color: "var(--lotte)" }
+  lotte:   { name: "롯데백화점 문화센터", color: "var(--lotte)" },
+  yes:     { name: "예스유학", color: "var(--yes)" }
 };
 
 // s: 시작일, e: 종료일(없으면 진행 중), n: 진행 회차, t: 수업 시간, d: 요일, m: 방식
 // mp: 월 단위로만 표시, freq: 요일·시간 대신 보여 줄 수업 주기, wh: 주당 수업 시간(총 시간 추정용)
 const COURSES = [
+  { o:"yes", s:"2025-06-01", mp:true, title:"유학생 대상 AP/IB Spanish 전담강사", freq:"주 평균 10시간", wh:10 },
   { o:"suwon", s:"2022-06-09", e:"2022-06-30", title:"Speakers 성인반 스페인 문화와 언어 (스페인어 회화)", freq:"목 19:00–19:50", h:3.3 },
   { o:"suwon", s:"2022-07-07", e:"2022-07-28", title:"Speakers 성인반 스페인 문화와 언어 (스페인어 회화)", freq:"목 19:00–20:50, 2개 반", h:6.7 },
   { o:"suwon", s:"2022-08-04", e:"2022-08-25", title:"Speakers 성인반 스페인 문화와 언어 (스페인어 회화)", freq:"목 19:00–20:50, 2개 반", h:6.7 },
