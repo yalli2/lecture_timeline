@@ -61,31 +61,6 @@
   .stats b { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
   .stats span { font-size: 15px; color: var(--ink-soft); }
 
-  /* 기관별 출강 기간표 */
-  .lanes {
-    background: var(--ink);
-    color: #fff;
-    border-radius: 6px;
-    padding: 28px 28px 22px;
-    margin: 28px 0 0;
-  }
-  .lanes h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-  .lanes p { margin: 0 0 22px; font-size: 14px; color: #A9B8C8; }
-  .grid { position: relative; }
-  .years, .lane-track { position: relative; margin-left: 168px; }
-  .years { height: 22px; font-size: 13px; color: #A9B8C8; }
-  .years span { position: absolute; top: 0; transform: translateX(6px); }
-  .lane { display: flex; align-items: center; height: 38px; border-top: 1px solid rgba(255,255,255,.12); }
-  .lane-name { width: 168px; flex: none; font-size: 14px; font-weight: 600; padding-right: 12px; }
-  .lane .lane-track { flex: 1; margin-left: 0; height: 100%; }
-  .lane-track i.tick { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,.12); }
-  .bar {
-    position: absolute; top: 10px; height: 18px; min-width: 4px;
-    border: 0; padding: 0; border-radius: 3px; cursor: pointer;
-    background: var(--c); filter: brightness(1.35) saturate(1.1);
-  }
-  .bar:hover, .bar:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-
   /* 필터 */
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 44px 0 8px; }
   .chip {
@@ -127,8 +102,6 @@
     background: var(--surface); border-radius: 6px; padding: 16px 20px 16px 18px;
     border-left: 5px solid var(--c);
   }
-  .item.flash .card { animation: flash 1.4s ease-out; }
-  @keyframes flash { from { box-shadow: 0 0 0 4px var(--spine); } to { box-shadow: 0 0 0 4px transparent; } }
   .org { margin: 0; font-size: 14px; font-weight: 700; color: var(--c); }
   .card h3 { margin: 2px 0 10px; font-size: 19px; line-height: 1.35; font-weight: 700; letter-spacing: -0.015em; }
   .meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-soft); }
@@ -142,12 +115,6 @@
   @media (max-width: 720px) {
     .wrap { padding: 0 16px; }
     header.top { padding-top: 36px; }
-    .lanes { padding: 20px 16px 14px; }
-    .years { margin-left: 0; }
-    .lane { display: block; height: auto; padding: 6px 0 4px; }
-    .lane-name { width: auto; font-size: 13px; }
-    .lane .lane-track { height: 26px; }
-    .bar { top: 4px; }
     .timeline::before { left: 7px; }
     .year { width: auto; margin-left: 30px; font-size: 34px; }
     .item { display: block; padding-left: 30px; }
@@ -157,7 +124,6 @@
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .item.flash .card { animation: none; outline: 3px solid var(--spine); }
   }
 </style>
 </head>
@@ -170,11 +136,6 @@
     <ul class="stats" id="stats"></ul>
   </header>
 
-  <section class="lanes" aria-labelledby="lanes-title">
-    <h2 id="lanes-title">기관별 출강 기간</h2>
-    <p>막대를 누르면 아래 타임라인의 해당 과정으로 이동합니다.</p>
-    <div class="grid" id="grid"></div>
-  </section>
 
   <div class="filters" id="filters" role="group" aria-label="기관별로 보기"></div>
   <p class="count" id="count" aria-live="polite"></p>
@@ -281,35 +242,6 @@ const stats = document.getElementById("stats");
   const li = el("li"); li.append(el("b", "", v), el("span", "", l)); stats.append(li);
 });
 
-/* 기관별 기간표 */
-const Y0 = 2019, Y1 = Math.max(2027, +TODAY.slice(0, 4) + 1);
-const T0 = Date.UTC(Y0, 0, 1), T1 = Date.UTC(Y1, 0, 1);
-const pos = d => (Date.parse(d) - T0) / (T1 - T0) * 100;
-const grid = document.getElementById("grid");
-const years = el("div", "years");
-for (let y = Y0; y < Y1; y++) { const s = el("span", "", y); s.style.left = (y - Y0) / (Y1 - Y0) * 100 + "%"; years.append(s); }
-grid.append(years);
-Object.entries(ORGS).forEach(([key, org]) => {
-  const lane = el("div", "lane");
-  lane.append(el("div", "lane-name", org.name));
-  const track = el("div", "lane-track");
-  for (let y = Y0; y < Y1; y++) { const t = el("i", "tick"); t.style.left = (y - Y0) / (Y1 - Y0) * 100 + "%"; track.append(t); }
-  COURSES.forEach((c, i) => {
-    if (c.o !== key) return;
-    const b = el("button", "bar");
-    b.type = "button";
-    b.style.setProperty("--c", org.color);
-    b.style.left = pos(c.s) + "%";
-    b.style.width = Math.max(pos(c.e || TODAY) - pos(c.s), 0.3) + "%";
-    b.title = org.name + " " + c.title + " (" + fmt(c.s, c.mp) + " ~ " + (c.e ? fmt(c.e, c.mp) : "현재") + ")";
-    b.setAttribute("aria-label", b.title);
-    b.addEventListener("click", () => jump(i));
-    track.append(b);
-  });
-  lane.append(track);
-  grid.append(lane);
-});
-
 /* 필터 */
 let active = "all";
 const filters = document.getElementById("filters");
@@ -351,12 +283,6 @@ function render() {
   });
   document.getElementById("count").textContent =
     (active === "all" ? "전체" : ORGS[active].name) + " " + shown + "개 과정을 진행 중인 과정부터 최근 순으로 보여 줍니다.";
-}
-function jump(i) {
-  if (active !== "all" && COURSES[i].o !== active) { active = "all"; render(); }
-  const t = document.getElementById("c" + i);
-  t.scrollIntoView({ block: "center" });
-  t.classList.remove("flash"); void t.offsetWidth; t.classList.add("flash");
 }
 render();
 </script>
